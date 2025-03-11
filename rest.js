@@ -52,6 +52,26 @@ app.get('/api/books/:id', function(req, res){
     }
 });
 
+// POST - Add a new book
+app.post('/api/books', (req, res) => {
+    const {title, author} = req.body;
+    if (!title || !author){
+        return res.status(400).json({message: 'Title and author are required'});
+    }
+
+    const newBook = {
+        id: books.length? books[books.length-1].id + 1 : 1,
+        title,
+        author
+    };
+
+    books.push(newBook);
+    res.status(201).json(newBook);
+});
+
+
+
+
 // Server Listening
 app.listen(PORT, () => {
     console.log(`Server Listening to http://localhost:${PORT}/api/books`);
