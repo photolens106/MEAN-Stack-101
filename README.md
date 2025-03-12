@@ -274,6 +274,43 @@ app.get('/api/books/:id', function(req, res){
     }
 });
 
+// POST - Add a new book
+app.post('/api/books', (req, res) => {
+    const {title, author} = req.body;
+    if (!title || !author){
+        return res.status(400).json({message: 'Title and author are required'});
+    }
+
+    const newBook = {
+        id: books.length? books[books.length-1].id + 1 : 1,
+        title,
+        author
+    };
+
+    books.push(newBook);
+    res.status(201).json(newBook);
+});
+
+// PUT - Update an existing book by id
+app.put('/api/books/:id', (req, res)=> {
+    const id = parseInt(req.params.id);
+    const {title, author} = req.body;
+    const bookIndex = books.findIndex(book => book.id === id);
+
+    if (bookIndex === -1){
+        return res.status(404).json({message: "Maataan Vendi Nee Indaayitt Vende daaa"})
+    }
+    
+    books[bookIndex] = {
+        ...books[bookIndex],
+        title: title || books[bookIndex].title,
+        author: author || books[bookIndex].author,
+    }
+
+    res.json(books[bookIndex]);
+})
+
+
 // Server Listening
 app.listen(PORT, () => {
     console.log(`Server Listening to http://localhost:${PORT}/api/books`);
@@ -286,3 +323,17 @@ app.listen(PORT, () => {
 Warning
 
 ![alt text](/images/image-2.png)
+
+### Using POSTMAN VScode Extension
+
+GET Method
+![alt text](/images/image-4.png)
+![alt text](/images/image-5.png)
+
+
+POST Method
+![alt text](/images/image-3.png)
+
+PUT Method
+![alt text](/images/image-6.png)
+![alt text](/images/image-7.png)
