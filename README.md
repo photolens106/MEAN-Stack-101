@@ -337,3 +337,6 @@ POST Method
 PUT Method
 ![alt text](/images/image-6.png)
 ![alt text](/images/image-7.png)
+
+DELETE Method
+![alt text](/images/image-8.png)
