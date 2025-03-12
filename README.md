@@ -340,3 +340,81 @@ PUT Method
 
 DELETE Method
 ![alt text](/images/image-8.png)
+
+## NODEMON
+
+- This package restarts the server automatically whenever there is a code change
+```bash
+npm install -g nodemon
+nodemon -v
+```
+
+## Applying Filters
+
+### Searching and Filtering in a REST API
+
+- Search and Filtering are very basic features that an API must possss to serve data to the ckuebt
+By handling these operations on the server-side, we can reduce the amount of processing that has to be done on the client application, thereby increasing its performance.​
+
+Aim: ​
+
+To build a Node.js REST API that can accept these query strings, filter a list of users based on these provided parameters, and then return the matching results.​
+
+Solution – using Query Strings​
+
+```javascript
+// Filename - data.js
+const data = [
+    { id: 1, name: 'Alan Wake', age: 21, city: 'New York' },
+    { id: 2, name: 'Steve Rogers', age: 106, city: 'Chicago' },
+    { id: 3, name: 'Tom Hanks', age: 47, city: 'Detroit' },
+    { id: 4, name: 'Ryan Burns', age: 16, city: 'New York' },
+    { id: 5, name: 'Jack Ryan', age: 31, city: 'New York' },
+    { id: 6, name: 'Clark Kent', age: 34, city: 'Metropolis' },
+    { id: 7, name: 'Bruce Wayne', age: 21, city: 'Gotham' },
+    { id: 8, name: 'Tim Drake', age: 21, city: 'Gotham' },
+    { id: 9, name: 'Jimmy Olsen', age: 21, city: 'Metropolis' },
+    { id: 10, name: 'Ryan Burns', age: 21, city: 'New York' },
+];
+
+module.exports = data;
+```
+
+```javascript
+// FileName - filter.js
+const express = require('express');
+const data = require('./data')
+const app = express();
+
+app.use('/', (req, res, next) => {
+    res.send("Node JS Search and Filter")
+});
+
+app.listen(3000, ()=> {
+    console.log('Server Started: http://localhost:3000/')
+});
+```
+```javascript
+const express = require('express')
+const PORT = 3000;
+const data = require('./data');
+const app = express();
+// Routing
+app.get('/', function(req, res, next){
+    const filters = req.query;
+    const filteredUsers = data.filter(user => {
+        let isValid = true;
+        for (key in filters){
+            console.log(key, user[key], filters[key]);
+            isValid = isValid && user[key]== filters[key]
+        }
+        return isValid;
+    });
+});
+
+// Server Listening
+app.listen(PORT, () => {
+    console.log(`Server Listening to http://localhost:3000?city=Metropolis​`);
+});
+```
+![alt text](./images/image-9.png)
