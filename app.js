@@ -1,24 +1,21 @@
-const http = require('http')
 const express = require('express')
 const PORT = 3000;
+const data = require('./data');
 const app = express();
 // Routing
-app.get('/', function(req, res){
-    // console.log("Hello World!");
-    res.send("Hello World");
+app.get('/', function(req, res, next){
+    const filters = req.query;
+    const filteredUsers = data.filter(user => {
+        let isValid = true;
+        for (key in filters){
+            console.log(key, user[key], filters[key]);
+            isValid = isValid && user[key]== filters[key]
+        }
+        return isValid;
+    });
 });
-
-app.get('/intmca', function(req, res){
-    const id = req.query.id;
-    res.send('Welcome to INT MCA'+id);
-})
-
-app.get('/intmca/:id', function(req, res){
-    const id = req.params.id;
-    res.send('Welcome to INT MCA'+id);
-})
 
 // Server Listening
 app.listen(PORT, () => {
-    console.log(`Server Listening to http://localhost:${PORT}/intmca/KH.SC.I5MCA21008`);
+    console.log(`Server Listening to http://localhost:3000?city=Metropolis​`);
 });
