@@ -1,5 +1,307 @@
 # MEAN-Stack-101
 
+- Basic Program containing everything for Fresh Up JavaScript, HTML and CSS
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roll Over Menu Bar</title>
+
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* Navigation Bar */
+        .navbar{
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+        }
+
+        .navbar a{
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+        }
+
+        .navbar a:hover{
+            background-color: #555;
+        }
+
+        /*Dropdown container*/
+        .dropdown {
+            position: relative;
+        }
+
+        /*Dropdown menu (Hidden By Default)*/
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background-color: #444;
+            min-width: 150px;
+        }
+
+        .dropdown-menu a{
+            padding: 10px;
+            color: white;
+            display: block;
+        }
+
+        .dropdown-menu a:hover{
+            background-color: #666;
+        }
+
+
+        .container{
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+            height: 100%;
+            gap: 20px;
+        }
+
+        .calculator{
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            input{
+                padding: 10px 20px;
+                color: black;
+                font-size: 16px;
+            }
+
+            .buttons {
+                display: flex;
+                gap: 10px;
+                padding: 10px;
+
+                button {
+                    padding: 10px 15px;
+                    border: none;
+                    border-radius: 6px;
+                    background-color: rgb(25, 24, 24);
+                    color: white;
+                    font-weight: bold;
+                    font-size: larger;
+                }
+            }
+
+        }
+
+        .validation_form {
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+            width: 300px;
+        }
+
+        .validation_form h2{
+            text-align: center;
+        }
+
+        .validation_form input{
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .validation_form input.error-border {
+            border: 2px solid red;
+        }
+
+        .validation_form .error{
+            color: red;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .validation_form button{
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .validation_form button:hover{
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#">Home</a>
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                Services
+            </a>
+            <div class="dropdown-menu">
+                <a href="#">Web Design</a>
+                <a href="#">SEO Analytics</a>
+                <a href="#">Digital Marketing</a>
+            </div>
+        </div>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </nav>
+
+
+
+    <main class="container">
+        <div class="calculator">
+            <h2>Simple Calculator</h2>
+            <input type="number" id="num1" placeholder="Enter First Number: ">
+            <input type="number" id="num2" placeholder="Enter Second Number: ">
+
+
+            <div class="buttons">
+                <button onclick="calculate('+')">+</button>
+                <button onclick="calculate('-')">-</button>
+                <button onclick="calculate('/')">/</button>
+                <button onclick="calculate('*')">*</button>
+            </div>
+
+            <div class="result">
+                Result: <span id="result"></span>
+            </div>
+        </div>
+
+
+
+
+        <div class="validation_form">
+            <h2>Form Validation</h2>
+            <form id="myForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" placeholder="Enter Your Name: ">
+                <span class="error" id="nameError"></span>
+
+                <label for="age">Age:</label>
+                <input type="number" id="age" placeholder="Enter Your Age: ">
+                <span class="error" id="ageError"></span>
+
+                <label for="password">Password:</label>
+                <input type="text" id="password" placeholder="Enter Password: ">
+                <span class="error" id="passwordError"></span>
+
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" placeholder="Re-enter Password: ">
+                <span class="error" id="confirmPasswordError"></span>
+
+                <button type="submit">Submit Form</button>
+            </form>
+        </div>
+    </main>
+
+
+    <script>
+        // Select Dropdown Elements from DOM
+        const dropdown = document.querySelector('.dropdown');
+        const dropdown_menu = document.querySelector('.dropdown-menu');
+
+        // Show Dropdown on hover
+        dropdown.addEventListener('mouseenter', () => {
+            dropdown_menu.style.display = 'block';
+        });
+
+        // Hide Dropdown on mouse leaving
+        dropdown.addEventListener('mouseleave', () => {
+            dropdown_menu.style.display = 'none';
+        });
+
+
+
+        //Calculator
+        function calculate(operator) {
+            let num1 = parseFloat(document.getElementById("num1").value);
+            let num2 = parseFloat(document.getElementById("num2").value);
+            let resultElement = document.getElementById("result");
+
+            if (isNaN(num1) || isNaN(num2)){
+                resultElement.innerText = "Enter Valid Numbers!";
+                return;
+            }
+
+            let result;
+            switch (operator) {
+                case '+':
+                    result = num1+num2;
+                    break;
+                case '-':
+                    result = num1-num2;
+                    break;
+                case '*':
+                    result = num1*num2;
+                    break;
+                case '/':
+                    result = num2!==0 ? num1 / num2 : "Cannot divide by zero!";
+                    break;
+                default:
+                    result = "Invalid Operation";
+            }
+
+            resultElement.innerText = result;
+        }
+
+
+        // Form Validation
+        document.getElementById("myForm").addEventListener("submit", function(event) {
+            event.preventDefault(); //Prevent Form Submission
+
+            let name = document.getElementById("name");
+            let age = document.getElementById("age");
+            let password = document.getElementById("password");
+            let confirmPassword = document.getElementById("confirmPassword");
+
+            let isValid = true;
+
+            //Helper function to validate and display error
+            function validateField(field, errorMsg, condition){
+                let errorElement = document.getElementById(field.id + "Error");
+                if (condition){
+                    errorElement.innerText = errorMsg;
+                    field.classList.add("error-border");
+                    isValid = false;
+                }else{
+                    errorElement.innerText = "";
+                    field.classList.remove("error-border");
+                }
+            }
+
+            //Apply Validations
+            validateField(name, "Name must contain only letters", !/^[A-Za-z]+$/.test(name.value.trim()));
+            validateField(age, "Enter a valid age!", age.value.trim() === "" || isNaN(age.value));
+            validateField(password, "Password must be at least 6 characters!", password.value.length < 6);
+            validateField(confirmPassword, "Passwords do not match!", password.value !== confirmPassword.value);
+
+            if (isValid){
+                alert("Form Submitted Successfully!");
+            }
+        })
+    </script>
+</body>
+</html>
+```
+
 ## Pre-Requisites
 ```bash
 node -v
@@ -13,6 +315,76 @@ cd folder_name
 npm init -y
 npm install express
 ```
+
+## What is Mean Stack?
+
+- **MEAN Stack** is a collection of JavaScript technologies used for full stack web development.
+- It is used for building **dynamic web applications** from frontend to backend using JavaScript.
+- MEAN stack is *open-source* and facilitates **rapid development**.
+
+### Components of MEAN Stack
+1. **MongoDB** - NoSQL database that stores data in JSON like format.
+2. **ExpressJS** - Lightweight and flexible backend framework for Node JS.
+3. **AngularJS** - Frontend JavaScript framework developed by Google for creating dynamic web apps.
+4. **NodeJS** - Server-side JavaScript runtime environment for handling backend operations.
+
+### MEAN Stack Architecture
+- AngularJS handles user requests and UI interactions.
+- NodeJS receive and processes client requests.
+- ExpressJS routes requests to database and sends response
+- MongoDB stores and retreives data for the applicaton.
+
+### Advantages of MEAN Stack
+✅Uses **JavaScript** for **both frontend and backend**, ensuring smooth development.
+✅**Open-source** and supports rapid application development.
+✅**High Performance** with NodeJS event driven architecture.
+✅**Scalabe and cloud-friendly**, ideal for modern web apps.
+
+### Disadvantages of MEAN Stack
+❌**MongoDB** is not ideal for *large-scale applications* requiring complex transactions.
+❌No standard JavaScript coding guidelines.
+❌Poor separation of business logic and server logic.
+❌Risk of data loss in some cases.
+
+# NodeJS
+
+## Introduction to NodeJS
+- NodeJS is an open-source, cross-platform JavaScript runtime environment.
+- Runs the V8 JavaScript engine (Google Chrome's core engine) outside the browser.
+- Uses asynchronous, event-driven programming for high performance.
+- Ideal for scalable, real-time applications due to non-blocking I/O operations.
+
+## Features of NodeJS
+✅**Single-threaded & event-driven** : Handles multiple requests using a single thread.
+✅**Non-blocking I/O**: Prevents delays by handling multiple tasks asynchronously.
+✅**Fast execution** : Uses V8 engine for efficient performance.
+✅**Cross Platform Compatibility**
+✅**Lightweight**: Does not create separate threads for each request.
+
+
+## How NodeJS Works?
+- Accepts client requests and processes them using a single threaded event loop.
+- Uses threads to handle I/O operations like database access or file handling.
+- Unlike traditional servers, it does not block execution while waiting for tasks to complete.
+
+## Advantages of NodeJS
+✅Highly Scalable
+✅Real-time Applications.
+✅Faster Development
+✅Caching Support
+✅Lightweight and Efficient
+
+npm - Node Package Manager (manages dependencies for projects)
+
+## Event Loop in NodeJS
+- Handles asynchronous operations using Queue System
+- Works in six phases.
+    1. Timers - Executes setTimeout/setInterval callbacks.
+    2. Pending Callbacks - Handles completed I/O operations.
+    3. Idle & Prepare - Internal processing phase.
+    4. Poll - Retreives new I/O events.
+    5. Check - Processes setImmediate() callbacks.
+    6. Close Callbacks - Handles socket closures.
 
 
 ## Node JS Server Creation
