@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Embedding Methods</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+    </style>
+    <!-- Method 1: Inline JavaScript -->
+    <script>
+        function internal() {
+            alert("This is an Internal JavaScript alert!");
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Different Methods of Embedding JavaScript</h1>
+
+    <!-- Method 1: Inline JavaScript -->
+    <h2>1. Internal JavaScript (within &lt;script&gt; tags)</h2>
+    <p>This method places JavaScript code directly within &lt;script&gt; tags in the HTML file.</p>
+    <button onclick="internal()">Click for Internal JS Alert</button>
+    <pre>
+        &lt;script&gt;
+            function internalAlert() {
+                alert("This is an inline JavaScript alert!");
+            }
+        &lt;/script&gt;
+    </pre>
+
+    <!-- Method 2: External JavaScript File -->
+    <h2>2. External JavaScript File</h2>
+    <p>This method links to an external .js file using the &lt;script&gt; tag with a src attribute.</p>
+    <button onclick="externalAlert()">Click for External JS Alert</button>
+    <pre>
+        &lt;script src="external.js"&gt;&lt;/script&gt; 
+    </pre>
+
+    <!-- Method 3: Inline Event Handler -->
+    <h2>3. Inline Event Handler</h2>
+    <p>This method embeds JavaScript directly in HTML event attributes.</p>
+    <button onclick="alert('This is an inline event handler alert!')">Click for Inline Event Alert</button>
+    <pre>
+        &lt;button onclick="alert('This is an inline event handler alert!')"&gt;Click&lt;/button&gt;
+    </pre>
+
+    <!-- Method 4: Event Listener (added via JavaScript) -->
+    <h2>4. Event Listener (added via JavaScript)</h2>
+    <p>This method uses JavaScript to attach event listeners to elements.</p>
+    <button id="listenerButton">Click for Event Listener Alert</button>
+    <pre>
+        &lt;button id="listenerButton"&gt;Click&lt;/button&gt;
+        &lt;script&gt;
+        document.getElementById('listenerButton').addEventListener('click', function() {
+            alert('This is an event listener alert!');
+        });
+        &lt;/script&gt;
+    </pre>
+
+    <!-- External JavaScript file for Method 2 -->
+    <script src="external.js"></script>
+
+    <!-- Inline script for Method 4 -->
+    <script>
+        document.getElementById('listenerButton').addEventListener('click', function () {
+            alert('This is an event listener alert!');
+        });
+    </script>
+</body>
+
+</html>

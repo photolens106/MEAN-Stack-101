@@ -1,0 +1,196 @@
+![alt text](image.png)
+
+
+index.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioData using HTML and CSS</title>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Profile -->
+    <header>
+        <div class="profile-image">
+            <img src="./picofme.png" alt="pic">
+        </div>
+        <div class="profile-header-content">
+            <p class="p1">Hari Krishnan</p>
+            <p class="p2"><i>Software Developer</i></p>
+        </div>
+    </header>
+
+    <!-- Education and Skill set -->
+    <section class="academic">
+        <div class="education">
+            <p class="p2">Masters in Computer Applications</p>
+            <ul>
+                <li>2021 - 2026</li>
+                <li>Amrita Vishwa Vidyapeetham, Kochi</li>
+                <li class="CGPA">Current CGPA: 7.89</li>
+            </ul>
+            <p class="p2">Higher Secondary School Education</p>
+            <ul>
+                <li>2019 - 2021</li>
+                <li>Central Board of Secondary Education</li>
+                <li class="CGPA">CGPA: 8.72</li>
+            </ul>
+            <p class="p2">Secondary School Education</p>
+            <ul>
+                <li>2018 - 2019</li>
+                <li>Central Board of Secondary Education</li>
+                <li class="CGPA">CGPA: 7.94</li>
+            </ul>
+        </div>
+        <div class="skills">
+            <table>
+                <thead>
+                    <td class="p2">Programming Skills</td>
+                    <td class="p2">Tools and Software</td>
+                    <td class="p2">Databases</td>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li>Python</li>
+                                <li>C++</li>
+                                <li>JavaScript</li>
+                                <li>NodeJS</li>
+                                <li>React</li>
+                                <li>HTML5</li>
+                                <li>CSS</li>
+                                <li>Tailwind CSS</li>
+                                <li>ExpressJS</li>
+                                <li>React Native</li>
+                                <li>PHP</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>Postman</li>
+                                <li>Git</li>
+                                <li>Github</li>
+                                <li>Visual Studio Code</li>
+                                <li>Netbeans</li>
+                                <li>Microsoft Suite</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>MySQL</li>
+                                <li>SQL Server</li>
+                                <li>Supabase</li>
+                                <li>MongoDB</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Relative Work Experiences -->
+    <section class="internships">
+        <p class="p1">Internships and Relative Work Experiences</p>
+        <div class="container">
+
+            <div class="internship">
+                <div class="media">
+                    <img src="./ea_internship.jpg" alt="">
+                </div>
+            </div>
+            <div class="internship">
+                <div class="media">
+                    <img src="./sky_scanner_internship.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="projects">
+        <div class="project-section">
+            <p class="p1">Projects</p>
+            <div class="project-list">
+                <div class="card">
+                    <figure class="card-banner img-holder" style="--width: 334; --height: 180;">
+                        <img src="./project-1.png" alt="FEXV2 - A python based Advanced File Explorer" class="img-cover"
+                            width="334" height="180">
+                    </figure>
+
+                    <div class="card-content">
+                        <span class="label-large card-subtitle">
+                            Desktop App
+                        </span>
+
+                        <h3 class="title-large card-title">
+                            FEXV2 - A python based Advanced File Explorer
+                        </h3>
+                        <a href="https://github.com/Algorynx/FEX" class="state-layer" target="_blank">Go to
+                            Repository</a>
+                    </div>
+
+                </div>
+                <div class="card">
+                    <figure class="card-banner img-holder" style="--width: 334; --height: 180;">
+                        <img src="./project-2.png" alt="CSP - Collaborative Service Providing Platform"
+                            class="img-cover" width="334" height="180">
+                    </figure>
+
+                    <div class="card-content">
+                        <span class="label-large card-subtitle">
+                            Web App
+                        </span>
+
+                        <h3 class="title-large card-title">
+                            Collaborative Service Providing Platform
+                        </h3>
+                        <a href="https://github.com/photolens106/CSP" target="_blank" class="state-layer">Go to
+                            Repository</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <figure class="card-banner img-holder" style="--width: 334; --height: 180;">
+                        <img src="./project-3.png" alt="RollCall - A QR Code attendance management system"
+                            class="img-cover" width="334" height="180">
+                    </figure>
+
+                    <div class="card-content">
+                        <span class="label-large card-subtitle">
+                            Web App
+                        </span>
+
+                        <h3 class="title-large card-title">
+                            RollCall - A QR Code Attendance management system
+                        </h3>
+                    </div>
+                    <a href="#" class="state-layer"></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div>
+            <p class="body-medium">Copyright 2023. All rights reserved by Hari Krishnan</p>
+        </div>
+    </footer>
+</body>
+
+</html>
+```

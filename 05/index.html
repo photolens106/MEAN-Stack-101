@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roll Over Menu Bar</title>
+
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        .validation_form {
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+            width: 300px;
+        }
+
+        .validation_form h2 {
+            text-align: center;
+        }
+
+        .validation_form input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .validation_form input.error-border {
+            border: 2px solid red;
+        }
+
+        .validation_form .error {
+            color: red;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .validation_form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .validation_form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <div class="validation_form">
+            <h2>Form Validation</h2>
+            <form id="myForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" placeholder="Enter Your Name: ">
+                <span class="error" id="nameError"></span>
+
+                <label for="age">Age:</label>
+                <input type="number" id="age" placeholder="Enter Your Age: ">
+                <span class="error" id="ageError"></span>
+
+                <label for="password">Password:</label>
+                <input type="text" id="password" placeholder="Enter Password: ">
+                <span class="error" id="passwordError"></span>
+
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" placeholder="Re-enter Password: ">
+                <span class="error" id="confirmPasswordError"></span>
+
+                <button type="submit">Submit Form</button>
+            </form>
+        </div>
+    </main>
+
+
+    <script>
+        // Form Validation
+        document.getElementById("myForm").addEventListener("submit", function (event) {
+            event.preventDefault(); //Prevent Form Submission
+
+            let name = document.getElementById("name");
+            let age = document.getElementById("age");
+            let password = document.getElementById("password");
+            let confirmPassword = document.getElementById("confirmPassword");
+
+            let isValid = true;
+
+            //Helper function to validate and display error
+            function validateField(field, errorMsg, condition) {
+                let errorElement = document.getElementById(field.id + "Error");
+                if (condition) {
+                    errorElement.innerText = errorMsg;
+                    field.classList.add("error-border");
+                    isValid = false;
+                } else {
+                    errorElement.innerText = "";
+                    field.classList.remove("error-border");
+                }
+            }
+
+            //Apply Validations
+            validateField(name, "Name must contain only letters", !/^[A-Za-z]+$/.test(name.value.trim()));
+            validateField(age, "Enter a valid age!", age.value.trim() === "" || isNaN(age.value));
+            validateField(password, "Password must be at least 6 characters!", password.value.length < 6);
+            validateField(confirmPassword, "Passwords do not match!", password.value !== confirmPassword.value);
+
+            if (isValid) {
+                alert("Form Submitted Successfully!");
+            }
+        })
+    </script>
+</body>
+
+</html>

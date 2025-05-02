@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+            height: 100%;
+            gap: 20px;
+        }
+
+        .calculator {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            input {
+                padding: 10px 20px;
+                color: black;
+                font-size: 16px;
+            }
+
+            .buttons {
+                display: flex;
+                gap: 10px;
+                padding: 10px;
+
+                button {
+                    padding: 10px 15px;
+                    border: none;
+                    border-radius: 6px;
+                    background-color: rgb(25, 24, 24);
+                    color: white;
+                    font-weight: bold;
+                    font-size: larger;
+                }
+            }
+
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <div class="calculator">
+            <h2>Simple Calculator</h2>
+            <input type="number" id="num1" placeholder="Enter First Number: ">
+            <input type="number" id="num2" placeholder="Enter Second Number: ">
+
+
+            <div class="buttons">
+                <button onclick="calculate('+')">+</button>
+                <button onclick="calculate('-')">-</button>
+                <button onclick="calculate('/')">/</button>
+                <button onclick="calculate('*')">*</button>
+            </div>
+
+            <div class="result">
+                Result: <span id="result"></span>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        //Calculator
+        function calculate(operator) {
+            let num1 = parseFloat(document.getElementById("num1").value);
+            let num2 = parseFloat(document.getElementById("num2").value);
+            let resultElement = document.getElementById("result");
+
+            if (isNaN(num1) || isNaN(num2)) {
+                resultElement.innerText = "Enter Valid Numbers!";
+                return;
+            }
+
+            let result;
+            switch (operator) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    result = num2 !== 0 ? num1 / num2 : "Cannot divide by zero!";
+                    break;
+                default:
+                    result = "Invalid Operation";
+            }
+
+            resultElement.innerText = result;
+        }
+    </script>
+</body>
+
+</html>
