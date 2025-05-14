@@ -592,101 +592,72 @@ app.listen(PORT, () => {
 
 
 ```javascript
-const express = require('express');
+const express = require("express");
 const app = express();
-const PORT = 3000;
+const PORT = 3050;
 
-// Middleware to parse JSOn request bodies
 app.use(express.json());
 
-// To define the sample data
 let books = [
-    {
-        "id": 1,
-        "title": "To Kill a Mockingbird",
-        "author": "Harper Lee"
-    },
-    {
-        "id": 2,
-        "title": "1984",
-        "author": "George Orwell"
-    },
-    {
-        "id": 3,
-        "title": "Pride and Prejudice",
-        "author": "Jane Austen"
-    },
-    {
-        "id": 4,
-        "title": "The Great Gatsby",
-        "author": "F. Scott Fitzgerald"
-    },
-    {
-        "id": 5,
-        "title": "The Catcher in the Rye",
-        "author": "J.D. Salinger"
-    }
+  { id: 1, title: "To Kill a Mockingbird", author: "Harper Lee" },
+  { id: 2, title: "1984", author: "George Orwell" },
+  { id: 3, title: "Pride and Prejudice", author: "Jane Austen" },
+  { id: 4, title: "The Great Gatsby", author: "F. Scott Fitzgerald" },
+  { id: 5, title: "The Catcher in the Rye", author: "J.D. Salinger" },
 ];
 
-// Define routes for handling the GET requests
-app.get('/api/books', function(req, res){
-    res.json(books);
+app.get("/", (req, res) => res.send("Books API"));
+
+// Get all books
+app.get("/api/books", (req, res) => res.json(books));
+
+// Get a book by ID
+app.get("/api/books/:id", (req, res) => {
+  const book = books.find((b) => b.id === parseInt(req.params.id));
+  book ? res.json(book) : res.status(404).json({ message: "Book Not Found" });
 });
 
-app.get('/api/books/:id', function(req, res){
-    const id = parseInt(req.params.id);
-    const book = books.find(book => book.id === id);
-    if (book){
-        res.json(book);
-    }
-    else{
-        res.status(404).json({
-            message: 'Book not found'
-        })
-    }
+// Add a new book
+app.post("/api/books", (req, res) => {
+  const { title, author } = req.body;
+  if (!title || !author) {
+    return res.status(400).json({ message: "Title and author required" });
+  }
+
+  const newBook = {
+    id: books.length ? books[books.length - 1].id + 1 : 1,
+    title,
+    author,
+  };
+  books.push(newBook);
+  res.json(newBook);
 });
 
-// POST - Add a new book
-app.post('/api/books', (req, res) => {
-    const {title, author} = req.body;
-    if (!title || !author){
-        return res.status(400).json({message: 'Title and author are required'});
-    }
+// Update a book
+app.put("/api/books/:id", (req, res) => {
+  const book = books.find((b) => b.id === parseInt(req.params.id));
+  if (!book) return res.status(404).json({ message: "Book Not Found" });
 
-    const newBook = {
-        id: books.length? books[books.length-1].id + 1 : 1,
-        title,
-        author
-    };
+  const { title, author } = req.body;
+  if (title) book.title = title;
+  if (author) book.author = author;
 
-    books.push(newBook);
-    res.status(201).json(newBook);
+  res.json(book);
 });
 
-// PUT - Update an existing book by id
-app.put('/api/books/:id', (req, res)=> {
-    const id = parseInt(req.params.id);
-    const {title, author} = req.body;
-    const bookIndex = books.findIndex(book => book.id === id);
+// Delete a book
+app.delete("/api/books/:id", (req, res) => {
+  const index = books.findIndex((b) => b.id === parseInt(req.params.id));
+  if (index === -1) return res.status(404).json({ message: "Book Not Found" });
 
-    if (bookIndex === -1){
-        return res.status(404).json({message: "Maataan Vendi Nee Indaayitt Vende daaa"})
-    }
-    
-    books[bookIndex] = {
-        ...books[bookIndex],
-        title: title || books[bookIndex].title,
-        author: author || books[bookIndex].author,
-    }
+  const deleted = books.splice(index, 1)[0];
+  res.json({ message: "Book Deleted", book: deleted });
+});
 
-    res.json(books[bookIndex]);
-})
-
-
-// Server Listening
 app.listen(PORT, () => {
-    console.log(`Server Listening to http://localhost:${PORT}/api/books`);
+  console.log(`Server running at http://localhost:${PORT}/`);
 });
+
 ```
 
 ![alt text](/images/image.png)
